@@ -74,8 +74,8 @@ export class Dapp extends React.Component {
     // clicks a button. This callback just calls the _connectWallet method.
     if (!this.state.selectedAddress) {
       return (
-        <ConnectWallet 
-          connectWallet={() => this._connectWallet()} 
+        <ConnectWallet
+          connectWallet={() => this._connectWallet()}
           networkError={this.state.networkError}
           dismiss={() => this._dismissNetworkError()}
         />
@@ -110,7 +110,7 @@ export class Dapp extends React.Component {
 
         <div className="row">
           <div className="col-12">
-            {/* 
+            {/*
               Sending a transaction isn't an immediate action. You have to wait
               for it to be mined.
               If we are waiting for one, we show a message here.
@@ -119,8 +119,8 @@ export class Dapp extends React.Component {
               <WaitingForTransactionMessage txHash={this.state.txBeingSent} />
             )}
 
-            {/* 
-              Sending a transaction can fail in multiple ways. 
+            {/*
+              Sending a transaction can fail in multiple ways.
               If that happened, we show a message here.
             */}
             {this.state.transactionError && (
@@ -142,7 +142,7 @@ export class Dapp extends React.Component {
             )}
 
             {/*
-              This component displays a form that the user can use to send a 
+              This component displays a form that the user can use to send a
               transaction and transfer some tokens.
               The component doesn't have logic, it just calls the transferTokens
               callback.
@@ -176,7 +176,7 @@ export class Dapp extends React.Component {
     const [selectedAddress] = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
     // Once we have the address, we can initialize the application.
-
+    console.log("selectedAddress=>",selectedAddress)
     // First we check the network
     if (!this._checkNetwork()) {
       return;
@@ -190,14 +190,14 @@ export class Dapp extends React.Component {
       // `accountsChanged` event can be triggered with an undefined newAddress.
       // This happens when the user removes the Dapp from the "Connected
       // list of sites allowed access to your addresses" (Metamask > Settings > Connections)
-      // To avoid errors, we reset the dapp state 
+      // To avoid errors, we reset the dapp state
       if (newAddress === undefined) {
         return this._resetState();
       }
-      
+
       this._initialize(newAddress);
     });
-    
+
     // We reset the dapp state if the network is changed
     window.ethereum.on("chainChanged", ([networkId]) => {
       this._stopPollingData();
@@ -227,6 +227,7 @@ export class Dapp extends React.Component {
     // We first initialize ethers by creating a provider using window.ethereum
     this._provider = new ethers.providers.Web3Provider(window.ethereum);
 
+    console.log('getSigner=>',this._provider.getSigner(0))
     // Then, we initialize the contract using that provider and the token's
     // artifact. You can do this same thing with your contracts.
     this._token = new ethers.Contract(
@@ -234,6 +235,8 @@ export class Dapp extends React.Component {
       TokenArtifact.abi,
       this._provider.getSigner(0)
     );
+    const value = await this._token.getValue()
+    //console.log('token.value=>',value)
   }
 
   // The next two methods are needed to start and stop polling data. While
@@ -262,6 +265,7 @@ export class Dapp extends React.Component {
     const symbol = await this._token.symbol();
 
     this.setState({ tokenData: { name, symbol } });
+    console.log('tokenData=>',{ name, symbol })
   }
 
   async _updateBalance() {
@@ -354,13 +358,13 @@ export class Dapp extends React.Component {
     this.setState(this.initialState);
   }
 
-  // This method checks if Metamask selected network is Localhost:8545 
+  // This method checks if Metamask selected network is Localhost:8545
   _checkNetwork() {
     if (window.ethereum.networkVersion === HARDHAT_NETWORK_ID) {
       return true;
     }
 
-    this.setState({ 
+    this.setState({
       networkError: 'Please connect Metamask to Localhost:8545'
     });
 

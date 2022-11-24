@@ -107,5 +107,11 @@ describe("Token contract", function () {
         initialOwnerBalance
       );
     });
+
+    it('expect第二个参数提供断言失败提示信息', function() {
+      var a = false;
+      expect(true, 'a should be true').to.be.true;
+    })
+
   });
 });

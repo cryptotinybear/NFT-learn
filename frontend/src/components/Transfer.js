@@ -11,6 +11,7 @@ export function Transfer({ transferTokens, tokenSymbol }) {
           event.preventDefault();
 
           const formData = new FormData(event.target);
+          console.log('event.target',event.target)
           const to = formData.get("to");
           const amount = formData.get("amount");
 
