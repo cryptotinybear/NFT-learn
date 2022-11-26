@@ -1,0 +1,22 @@
+.wallet-page-bg{
+  background: rgba(128, 128, 128, 0.76);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .wallet-page-panel{
+    height: 400px;
+    width: 300px;
+    background: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .wallet-item{
+      margin: 5px 8px;
+      cursor: pointer;
+    }
+  }
+}

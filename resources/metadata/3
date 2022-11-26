@@ -1,0 +1,11 @@
+{
+  "name": "nft-web3-explorer",
+  "attributes": [
+    {
+      "trait_type": "tokenID",
+      "value": "3"
+    }
+  ],
+  "description": "nft-web3-explorer image",
+  "image": "ipfs://QmQa7Gc2ehpXsf763UFKt31k6PhTpeBdFamXKMfdirrwxm/3.jpeg"
+}

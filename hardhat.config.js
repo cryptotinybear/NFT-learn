@@ -4,10 +4,11 @@ require("@nomicfoundation/hardhat-toolbox");
 // project. It imports a Hardhat task definition, that can be used for
 // testing the frontend.
 require("./tasks/faucet");
-require("dotenv").config();
+require("dotenv").config({path: __dirname + '/.env'});
 
-const url = process.env.API_KEY_URL;
+const API = process.env.API_KEY_URL;
 const privateKey = process.env.GOERLI_PRIVATE_KEY;
+
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.9",
@@ -18,6 +19,10 @@ module.exports = {
     // },
     hardhat: {
       chainId: 1337, // We set 1337 to make interacting with MetaMask simpler,
+    },
+    goerli: {
+      url: API,
+      accounts: [`0x${privateKey}`]
     }
   }
 };

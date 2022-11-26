@@ -1,0 +1,27 @@
+.main{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  flex-direction: column;
+  display: flex;
+  .topBar{
+    height: 90px;
+    width: 100%;
+    background: aquamarine;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+    .title{
+      margin: 0 10px;
+    }
+  }
+  .container{
+    flex: 1;
+  }
+  .bottomBar{
+    height: 90px;
+    width: 100%;
+    background: burlywood;
+  }
+}
